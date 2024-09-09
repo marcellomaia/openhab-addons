@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<thing:thing-descriptions bindingId="apsystems"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:thing="https://openhab.org/schemas/thing-description/v1.0.0"
+	xsi:schemaLocation="https://openhab.org/schemas/thing-description/v1.0.0 https://openhab.org/schemas/thing-description-1.0.0.xsd">
+
+	<thing-type id="ecu">
+		<label>APSystems ECU</label>
+		<description>ECU APSystems Thing</description>
+		<channels>
+			<channel id="power" typeId="power"/>
+			<channel id="energy" typeId="energy"/>
+		</channels>
+		<config-description>
+			<parameter name="hostname" type="text" required="true">
+				<context>network-address</context>
+				<label>ECU IP/Hostname</label>
+				<description>Hostname or IP address of the ECU</description>
+			</parameter>
+			<parameter name="refreshInterval" type="integer" unit="s" min="1">
+				<label>Refresh Interval</label>
+				<description>Interval the device is polled in sec.</description>
+				<default>60</default>
+			</parameter>
+		</config-description>
+	</thing-type>
+
+	<channel-type id="power">
+		<item-type>Number:Power</item-type>
+		<label>Current Power</label>
+		<description>Current power beeing produced by the system</description>
+		<state pattern="%.0f %unit%" readOnly="true"/>
+	</channel-type>
+	<channel-type id="energy">
+		<item-type>Number:Energy</item-type>
+		<label>Today's Energy</label>
+		<description>Total energy produced today by the system</description>
+		<state pattern="%.1f %unit%" readOnly="true"/>
+	</channel-type>
+</thing:thing-descriptions>
